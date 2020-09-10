@@ -250,20 +250,362 @@ mpg.groupby("model_year")["horsepower"].mean().plot()
 sns.pairplot(mpg, hue = 'cylinders')
 
 
+# In[1]:
+
+
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy import stats
+
+
+# In[2]:
+
+
+iris=sns.load_dataset('iris')
+mpg=sns.load_dataset('mpg')
+tips = sns.load_dataset('tips')
+titanic=sns.load_dataset('titanic')
+
+
+# In[3]:
+
+
+labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+men_means = [20, 34, 30, 35, 27]
+women_means = [25, 32, 34, 20, 25]
+df = pd.DataFrame(list(zip(labels, men_means, women_means)), columns =["labels", "men_means", "women_means"])
+df.head()
+
+
 # In[ ]:
 
 
+#barplot
 
+
+# In[4]:
+
+
+sns.barplot(df['labels'], df['men_means'])
+
+
+# In[5]:
+
+
+plt.bar(df['labels'], df['men_means'])   # matplotlib version.
+
+
+# In[7]:
+
+
+sns.barplot('labels', 'men_means', data = df)
+
+
+# In[9]:
+
+
+# order method
+sns.barplot('labels', 'men_means', order = ['G1', 'G5', 'G3', 'G2', 'G4'], data = df) 
+
+
+# In[10]:
+
+
+#auto-order method
+sns.barplot('labels', 'men_means', order = df.sort_values('men_means')['labels'], data = df) 
+
+
+# In[11]:
+
+
+y=[59219,
+ 55466,
+ 47544,
+ 36443,
+ 35917,
+ 31991,
+ 27097,
+ 23030,
+ 20524,
+ 18523,
+ 18017,
+ 7920,
+ 7331,
+ 7201,
+ 5833]
+
+
+# In[12]:
+
+
+x= ['JavaScript',
+ 'HTML/CSS',
+ 'SQL',
+ 'Python',
+ 'Java',
+ 'Bash/Shel/PS',
+ 'C#',
+ 'PHP',
+ 'C++',
+ 'TypeScript',
+ 'C',
+ 'Other(s):',
+ 'Ruby',
+ 'Go',
+ 'Assembly']
+
+
+# In[13]:
+
+
+fig, ax = plt.subplots(figsize=(15, 7))
+ax.bar(x, y)
+ax.set_title("Most Popular Languages")
+ax.set_ylabel('Number of People Who Use')
+ax.set_xticklabels(x, rotation=45);
+
+
+# In[14]:
+
+
+fig, ax = plt.subplots(figsize=(15, 7))
+sns.barplot(x, y)                         # sns.barplot(x, y, ax = ax)
+ax.set_title("Most Popular Languages")
+ax.set_ylabel('Number of People Who Use')
+ax.set_xticklabels(x, rotation=45);
+
+
+# In[15]:
+
+
+tips.head()
+
+
+# In[22]:
+
+
+sns.barplot(x = 'sex', y = 'total_bill', data = tips)   # if there is a statistical count there is a tab. (ci)
+                                                        # default value is mean
+
+
+# In[29]:
+
+
+sns.barplot(x = 'sex', y = 'total_bill', data = tips, ci = None)
+
+
+# In[26]:
+
+
+y=tips.groupby("sex").total_bill.mean()               # matplotlib version (mean)
+x=tips.groupby("sex").total_bill.mean().index
+fig, ax = plt.subplots()
+ax.bar(x, y)
+
+
+# In[31]:
+
+
+sns.barplot(x = 'sex', y = 'total_bill', data = tips, hue = 'smoker')
+
+
+# In[34]:
+
+
+tips.head()
+
+
+# In[38]:
+
+
+sns.barplot('day', 'tip', 'sex', tips, estimator=sum)
+
+
+# In[39]:
+
+
+sns.barplot('day', 'tip', 'sex', tips)      # default estimator value is mean
+
+
+# In[40]:
+
+
+mpg.head()
+
+
+# In[42]:
+
+
+sns.barplot('cylinders', 'horsepower', data = mpg)
+
+
+# In[43]:
+
+
+titanic.head()
+
+
+# In[44]:
+
+
+sns.barplot('class', 'age', 'sex', data = titanic)
 
 
 # In[ ]:
 
 
+# countplot
 
 
-
-# In[ ]:
-
+# In[45]:
 
 
+tips.head()
+
+
+# In[49]:
+
+
+sns.set(style="darkgrid")
+sns.countplot(x = 'sex', data = tips)   # = tips['sex'].value_counts()
+
+
+# In[51]:
+
+
+tips['sex'].value_counts().plot.bar()
+
+
+# In[52]:
+
+
+mpg.head()
+
+
+# In[55]:
+
+
+sns.countplot('model_year', data = mpg)
+
+
+# In[68]:
+
+
+#boxplot
+
+
+# In[56]:
+
+
+sns.boxplot('total_bill', data = tips)
+
+
+# In[58]:
+
+
+sns.boxplot('total_bill', data = tips, orient = 'v')
+
+
+# In[59]:
+
+
+sns.boxplot('day', 'total_bill', data = tips)
+
+
+# In[69]:
+
+
+#violinplot
+
+
+# In[70]:
+
+
+sns.violinplot('day', 'total_bill', data = tips)
+
+
+# In[71]:
+
+
+#stripplot
+
+
+# In[72]:
+
+
+sns.stripplot('day', 'total_bill', data = tips)
+
+
+# In[73]:
+
+
+# swarmplot
+
+
+# In[74]:
+
+
+sns.swarmplot('day', 'total_bill', data = tips)
+
+
+# In[75]:
+
+
+titanic.head()
+
+
+# In[83]:
+
+
+sns.swarmplot('class', 'age', 'survived', data = titanic)
+
+
+# In[84]:
+
+
+sns.swarmplot('origin', 'horsepower', 'cylinders', data = mpg)
+
+
+# In[85]:
+
+
+#catplot
+
+
+# In[86]:
+
+
+sns.catplot('sex', 'total_bill', data = tips, kind = 'bar')   # all in one
+
+
+# In[87]:
+
+
+sns.catplot('sex', 'total_bill', data = tips, kind = 'violin') 
+
+
+# In[88]:
+
+
+sns.catplot('sex', 'total_bill', data = tips, kind = 'strip') 
+
+
+# In[89]:
+
+
+sns.catplot('sex', 'total_bill', data = tips, kind = 'hist') 
+
+
+# In[90]:
+
+
+#pointplot
+
+
+# In[91]:
+
+
+sns.pointplot('sex', 'total_bill', data= tips)
 
