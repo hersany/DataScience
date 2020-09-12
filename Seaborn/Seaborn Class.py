@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[3]:
 
 
 import seaborn as sns
@@ -24,7 +24,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
-# In[3]:
+# In[4]:
 
 
 diamonds=sns.load_dataset('diamonds')
@@ -608,4 +608,395 @@ sns.catplot('sex', 'total_bill', data = tips, kind = 'hist')
 
 
 sns.pointplot('sex', 'total_bill', data= tips)
+
+
+# In[3]:
+
+
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy import stats
+
+
+# In[9]:
+
+
+# heatmap
+
+
+# In[4]:
+
+
+flights = sns.load_dataset('flights')
+tips = sns.load_dataset('tips')
+mpg=sns.load_dataset('mpg')
+
+
+# In[6]:
+
+
+flights.head()
+
+
+# In[7]:
+
+
+tips.corr()
+
+
+# In[8]:
+
+
+sns.heatmap(tips.corr())
+
+
+# In[10]:
+
+
+sns.heatmap(tips.corr(), annot = True)
+
+
+# In[11]:
+
+
+sns.heatmap(tips.corr(), annot = True, cmap = 'coolwarm')
+
+
+# In[12]:
+
+
+flights.head()
+
+
+# In[13]:
+
+
+flights.pivot_table('passengers', 'month', 'year')
+
+
+# In[16]:
+
+
+a = flights.pivot_table('passengers', 'month', 'year')
+
+
+# In[17]:
+
+
+sns.heatmap(a)
+
+
+# In[22]:
+
+
+plt.subplots(figsize=(15,10))
+sns.heatmap(a, annot = True, fmt='g')
+
+
+# In[23]:
+
+
+mpg.head()
+
+
+# In[24]:
+
+
+mpg.corr()
+
+
+# In[30]:
+
+
+plt.subplots(figsize=(10,7))
+sns.heatmap(mpg.corr(), annot = True, cmap = 'Blues');
+
+
+# In[31]:
+
+
+# Grids
+
+
+# In[36]:
+
+
+sns.pairplot(tips)
+
+
+# In[34]:
+
+
+sns.pairplot(tips, diag_kind = 'kde', hue = 'sex')
+
+
+# In[37]:
+
+
+# PairGrid
+
+
+# In[39]:
+
+
+sns.PairGrid(tips);
+
+
+# In[41]:
+
+
+g = sns.PairGrid(tips)
+g.map(plt.scatter)
+
+
+# In[46]:
+
+
+g = sns.PairGrid(tips)
+g.map_diag(plt.hist)
+g.map_upper(plt.scatter)
+g.map_lower(sns.kdeplot)
+
+
+# In[47]:
+
+
+# FacetGrid
+
+
+# In[48]:
+
+
+tips.head()
+
+
+# In[51]:
+
+
+g = sns.FacetGrid(tips, col = 'time', row = 'smoker')
+
+
+# In[52]:
+
+
+g = sns.FacetGrid(tips, col = 'time', row = 'smoker')
+g.map(plt.hist, 'total_bill')                # numeric one total_bill, col and row conditions/states
+
+
+# In[53]:
+
+
+g = sns.FacetGrid(tips, col = 'time')
+g.map(plt.hist, 'total_bill')
+
+
+# In[54]:
+
+
+g = sns.FacetGrid(tips, row = 'time')
+g.map(plt.hist, 'total_bill')
+
+
+# In[55]:
+
+
+# lmplot      # regression plot
+
+
+# In[56]:
+
+
+tips.head()
+
+
+# In[57]:
+
+
+sns.lmplot('total_bill', 'tip', tips)
+
+
+# In[63]:
+
+
+sns.lmplot('total_bill', 'tip', tips, ci = 99)
+
+
+# In[64]:
+
+
+sns.lmplot('total_bill', 'tip', tips, ci = 99, hue = 'sex')
+
+
+# In[65]:
+
+
+# rows nad columns in lmplot
+
+
+# In[68]:
+
+
+sns.lmplot('total_bill', 'tip', tips, ci = 99, col = 'sex')
+
+
+# In[69]:
+
+
+sns.lmplot('total_bill', 'tip', tips, ci = 99, col = 'sex', row = 'smoker')
+
+
+# In[ ]:
+
+
+# aspect, height
+
+
+# In[76]:
+
+
+sns.lmplot('total_bill', 'tip', tips, ci = 99, col = 'sex', row = 'smoker', aspect = 1, height = 8)
+
+
+# In[77]:
+
+
+# style and color
+
+
+# In[78]:
+
+
+tips.head()
+
+
+# In[79]:
+
+
+sns.countplot('sex', data = tips)
+
+
+# In[82]:
+
+
+sns.set_style('dark')
+sns.countplot('sex', data = tips)
+
+
+# In[83]:
+
+
+sns.set_style('darkgrid')
+sns.countplot('sex', data = tips)
+
+
+# In[86]:
+
+
+sns.set_style('whitegrid')
+sns.countplot('sex', data = tips)
+
+
+# In[87]:
+
+
+plt.style.use('ggplot')
+sns.countplot('sex', data = tips)
+
+
+# In[1]:
+
+
+# spine removal         despine is frame
+
+
+# In[10]:
+
+
+plt.style.use('default')
+sns.countplot('sex', data = tips)
+sns.despine(left = True, top = False)           # True one is removed, False one is stay
+
+
+# In[7]:
+
+
+# figsize
+
+
+# In[12]:
+
+
+plt.subplots(figsize=(10,7))       # = plt.figure(figsize=(10,7)) 
+sns.set_style('whitegrid')
+sns.countplot('sex', data = tips)
+
+
+# In[13]:
+
+
+# context
+# notebook(default), paper, talk, poster
+
+
+# In[24]:
+
+
+sns.set_context('notebook')
+sns.countplot('sex', data = tips)
+
+
+# In[23]:
+
+
+sns.set_context('poster')
+sns.countplot('sex', data = tips)
+
+
+# In[ ]:
+
+
+# color
+
+
+# In[27]:
+
+
+x= ['JavaScript', 'HTML/CSS', 'SQL', 'Python', 'Java', 'Bash/Shel/PS', 'C#', 'PHP', 'C++', 'TypeScript',
+ 'C', 'Other(s):', 'Ruby', 'Go', 'Assembly']
+y=[59219, 55466, 47544, 36443, 35917, 31991, 27097, 23030, 20524, 18523, 18017, 7920, 7331, 7201, 5833]
+
+
+# In[31]:
+
+
+fig, ax = plt.subplots(figsize=(9, 4))
+sns.set_context('notebook')
+sns.barplot(x,y, palette=None)
+ax.set_title("Most Popular Languages")
+ax.set_ylabel('Number of People Who Use')
+ax.set_xticklabels(x, rotation=45);
+
+
+# In[32]:
+
+
+fig, ax = plt.subplots(figsize=(9, 4))
+sns.set_context('notebook')
+sns.barplot(x,y, palette='seismic')                # matplotlib colormaps seismic etc.
+ax.set_title("Most Popular Languages")
+ax.set_ylabel('Number of People Who Use')
+ax.set_xticklabels(x, rotation=45);
+
+
+# In[34]:
+
+
+fig, ax = plt.subplots(figsize=(9, 4))
+sns.set_context('notebook')
+sns.barplot(x,y, palette='magma')                # matplotlib colormaps seismic etc.
+ax.set_title("Most Popular Languages")
+ax.set_ylabel('Number of People Who Use')
+ax.set_xticklabels(x, rotation=45);
 
