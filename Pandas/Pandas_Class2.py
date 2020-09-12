@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[6]:
+# In[1]:
 
 
 # missing values / outliers
@@ -34,25 +34,25 @@ df
 df.dropna()
 
 
-# In[7]:
+# In[6]:
 
 
 df.dropna(axis = 1)
 
 
-# In[8]:
+# In[7]:
 
 
 df.dropna(thresh = 2)
 
 
-# In[10]:
+# In[8]:
 
 
 df.fillna(value = 'milk')
 
 
-# In[11]:
+# In[9]:
 
 
 V1 = np.array([2,3,5,np.NaN,7,1,np.NaN,10,14])
@@ -66,7 +66,43 @@ df = pd.DataFrame(
 df
 
 
+# In[10]:
+
+
+df.isnull()
+
+
+# In[11]:
+
+
+df.notnull()
+
+
 # In[12]:
+
+
+df.isnull().sum()
+
+
+# In[13]:
+
+
+df.notnull().sum()
+
+
+# In[14]:
+
+
+df['Var1'].isnull()
+
+
+# In[15]:
+
+
+df[df['Var1'].isnull()]
+
+
+# In[16]:
 
 
 df.isnull()
@@ -75,154 +111,118 @@ df.isnull()
 # In[17]:
 
 
-df.notnull()
+df
 
 
 # In[18]:
 
 
-df.isnull().sum()
+df.isnull().any(axis=0)
 
 
 # In[19]:
 
 
-df.notnull().sum()
+df.isnull().all(axis=1)
 
 
 # In[20]:
 
 
-df['Var1'].isnull()
+df.isnull().any(axis=1)
 
 
 # In[21]:
 
 
-df[df['Var1'].isnull()]
-
-
-# In[31]:
-
-
-df.isnull()
-
-
-# In[41]:
-
-
-df
-
-
-# In[37]:
-
-
-df.isnull().any(axis=0)
-
-
-# In[39]:
-
-
-df.isnull().all(axis=1)
-
-
-# In[40]:
-
-
-df.isnull().any(axis=1)
-
-
-# In[42]:
-
-
 df[df.isnull().any(axis=1)]
 
 
-# In[43]:
+# In[22]:
 
 
 df[~df.isnull().any(axis=1)]    # ~ means against
 
 
-# In[44]:
+# In[23]:
 
 
 # handle with missing values
 
 
-# In[45]:
+# In[24]:
 
 
 df.dropna()
 
 
-# In[49]:
+# In[25]:
 
 
 df.dropna(how = 'all')
 
 
-# In[50]:
+# In[26]:
 
 
 df.dropna(how = 'any')
 
 
-# In[51]:
+# In[27]:
 
 
 df['Var1']
 
 
-# In[52]:
+# In[28]:
 
 
 df['Var1'].fillna(0)
 
 
-# In[53]:
+# In[29]:
 
 
 df['Var1'].fillna(df['Var1'].mean())
 
 
-# In[57]:
+# In[30]:
 
 
 df.apply(lambda x : x.fillna(x.mean()))
 
 
-# In[61]:
+# In[31]:
 
 
 df.mean()
 
 
-# In[62]:
+# In[32]:
 
 
 df.fillna(df.mean())
 
 
-# In[63]:
+# In[33]:
 
 
 df.fillna({'Var1' : 6, 'Var2' : 6.16})
 
 
-# In[65]:
+# In[34]:
 
 
 #where
 
 
-# In[66]:
+# In[35]:
 
 
 df.where(pd.notnull(df), df.mean(), axis = 1)
 
 
-# In[68]:
+# In[36]:
 
 
 Var1 = np.array([1,3,6,np.NaN,7,1,9,np.NaN,15])
@@ -237,43 +237,43 @@ df = pd.DataFrame(
 )
 
 
-# In[69]:
+# In[37]:
 
 
 df
 
 
-# In[71]:
+# In[38]:
 
 
 df.groupby('department')['salary'].mean()
 
 
-# In[72]:
+# In[39]:
 
 
 df['salary'].fillna({0:1, 1:2, 2:3, 3:4, 4:5, 5:6, 6:7, 7:8, 8:9})
 
 
-# In[73]:
+# In[40]:
 
 
 df
 
 
-# In[76]:
+# In[41]:
 
 
 df.groupby('department')['salary'].transform('mean')
 
 
-# In[75]:
+# In[42]:
 
 
 df.salary.fillna(df.groupby('department')['salary'].transform('mean'))
 
 
-# In[77]:
+# In[43]:
 
 
 V1 = np.array([1,3,6,np.NaN,7,1,np.NaN,9,15])
@@ -285,19 +285,19 @@ df = pd.DataFrame(
 df
 
 
-# In[78]:
+# In[44]:
 
 
 df['department'].fillna(df['department'].mode()[0])         # fill missing values with mode of column
 
 
-# In[80]:
+# In[45]:
 
 
 df['department'].fillna(method = 'bfill')                  # back fill
 
 
-# In[ ]:
+# In[46]:
 
 
 #df['department'].fillna(a, method = 'ffill', limit = 200)   
@@ -310,19 +310,19 @@ df['department'].fillna(method = 'bfill')                  # back fill
 #df['department'].fillna(a, method = 'ffill', limit = 100)  
 
 
-# In[81]:
+# In[47]:
 
 
 df['department'].fillna(method = 'ffill')                    # forward fill
 
 
-# In[82]:
+# In[48]:
 
 
 # outliers
 
 
-# In[83]:
+# In[49]:
 
 
 import seaborn as sns
@@ -332,31 +332,31 @@ df = df.dropna()
 df.head()
 
 
-# In[84]:
+# In[50]:
 
 
 sns.boxplot(df['table'])
 
 
-# In[85]:
+# In[51]:
 
 
 df_table = df['table']
 
 
-# In[86]:
+# In[52]:
 
 
 df_table.head()
 
 
-# In[88]:
+# In[53]:
 
 
 pd.DataFrame(df_table).info()
 
 
-# In[96]:
+# In[54]:
 
 
 q1 = df_table.quantile(0.25)
@@ -364,184 +364,378 @@ q3 = df_table.quantile(0.75)
 iqr = q3 - q1
 
 
-# In[97]:
+# In[55]:
 
 
 q3
 
 
-# In[98]:
+# In[56]:
 
 
 q1
 
 
-# In[99]:
+# In[57]:
 
 
 iqr
 
 
-# In[94]:
+# In[58]:
 
 
 df.describe()
 
 
-# In[128]:
+# In[59]:
 
 
 lower_lim = q1 - 1.5 * iqr
 upper_lim = q3 + 1.5 * iqr
 
 
-# In[102]:
+# In[60]:
 
 
 lower_lim
 
 
-# In[103]:
+# In[61]:
 
 
 upper_lim
 
 
-# In[133]:
+# In[62]:
 
 
 outliers_15_low = df_table < lower_lim
 
 
-# In[134]:
+# In[63]:
 
 
 outliers_15_up = df_table > upper_lim
 
 
-# In[113]:
+# In[64]:
 
 
 df_table[outliers_15_low]
 
 
-# In[114]:
+# In[65]:
 
 
 df_table[outliers_15_up]
 
 
-# In[115]:
+# In[66]:
 
 
 df_table[outliers_15_low | outliers_15_up]
 
 
-# In[117]:
+# In[67]:
 
 
 lower_lim = q1 - 2.5 * iqr
 upper_lim = q3 + 2.5 * iqr
 
 
-# In[118]:
+# In[68]:
 
 
 df_table[(df_table < lower_lim) | (df_table > upper_lim)]
 
 
-# In[119]:
+# In[69]:
 
 
 #removing the outliers
 
 
-# In[135]:
+# In[70]:
 
 
 df_table[~(outliers_15_low | outliers_15_up)]
 
 
-# In[138]:
+# In[71]:
 
 
 clean_df = df[~(outliers_15_low | outliers_15_up)]
 
 
-# In[139]:
+# In[72]:
 
 
 clean_df                             # without ouliers (1.5)
 
 
-# In[140]:
+# In[73]:
 
 
 # limitation winsorize() method
 
 
-# In[141]:
+# In[74]:
 
 
 from scipy.stats.mstats import winsorize
 
 
-# In[142]:
+# In[75]:
 
 
 df
 
 
-# In[144]:
+# In[76]:
 
 
 df_table
 
 
-# In[145]:
+# In[77]:
 
 
 sns.boxplot(df['table'])
 
 
-# In[146]:
+# In[78]:
 
 
 sns.distplot(df['table'], kde = False, bins = 15)
 
 
-# In[161]:
+# In[79]:
 
 
 df_table_win = winsorize(df_table, (0.01, 0.02))      # % 1 from bottom % 2 from top
 
 
-# In[158]:
+# In[80]:
 
 
 df_table_win
 
 
-# In[159]:
+# In[81]:
 
 
 sns.distplot(df_table_win, kde = False, bins = 10)
 
 
-# In[160]:
+# In[82]:
 
 
 sns.boxplot(df_table_win)
 
 
-# In[163]:
+# In[83]:
 
 
 df['table'].describe()
 
 
-# In[ ]:
+# In[86]:
 
 
-df_table_win
+df_table_win = pd.DataFrame(df_table_win)[0]
+
+
+# In[87]:
+
+
+df_table_win.describe()
+
+
+# In[92]:
+
+
+df['table'].sort_values().head(20)
+
+
+# In[93]:
+
+
+df_table_win.sort_values().head(20)    # scale values
+
+
+# In[94]:
+
+
+df_table_win[11368]
+
+
+# In[95]:
+
+
+df['table'][11368]
+
+
+# In[96]:
+
+
+df_table_win[24815]
+
+
+# In[97]:
+
+
+df['table'][24815]
+
+
+# In[100]:
+
+
+df_table_win[df_table_win == 53]
+
+
+# In[99]:
+
+
+df_table[df_table == 53]
+
+
+# In[103]:
+
+
+df_table_win[df_table_win == 63]           # 1180 - 563. because right skewed.
+                                           # upper outliers are more than lower. 0.02 from uuper side.
+
+
+# In[104]:
+
+
+df_table[df_table == 63]
+
+
+# In[107]:
+
+
+q1
+
+
+# In[106]:
+
+
+q3
+
+
+# In[108]:
+
+
+iqr
+
+
+# In[111]:
+
+
+lower = q1 - 1.5 * iqr
+upper = q3 + 1.5 * iqr
+
+
+# In[112]:
+
+
+lower
+
+
+# In[113]:
+
+
+upper
+
+
+# In[114]:
+
+
+outliers_15 = (df_table_win < lower) | (df_table_win > upper)
+
+
+# In[116]:
+
+
+df_table_win[outliers_15]
+
+
+# In[117]:
+
+
+df_table[(df_table < lower) | (df_table > upper)]
+
+
+# In[131]:
+
+
+df['table_win'] = df_table_win
+
+
+# In[119]:
+
+
+# log() transformation
+
+
+# In[132]:
+
+
+df.info()
+
+
+# In[122]:
+
+
+df_carat = df['carat']
+
+
+# In[123]:
+
+
+df_carat.head()
+
+
+# In[124]:
+
+
+sns.boxplot(df_carat)
+
+
+# In[127]:
+
+
+sns.distplot(df_carat, bins = 15, kde = False)
+
+
+# In[128]:
+
+
+df_carat_log = np.log(df_carat)
+
+
+# In[129]:
+
+
+sns.distplot(df_carat_log, bins = 15, kde = False)
+
+
+# In[130]:
+
+
+sns.boxplot(df_carat_log)
+
+
+# In[133]:
+
+
+df['carat_log'] = np.log(df['carat'])
+
+
+# In[134]:
+
+
+df.head()
 
