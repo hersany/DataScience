@@ -739,3 +739,36 @@ df['carat_log'] = np.log(df['carat'])
 
 df.head()
 
+
+# In[1]:
+
+
+import pandas as pd
+
+
+# In[2]:
+
+
+df1 = pd.DataFrame({'lkey': ['x', 'y', 'z', 'c', 'z','x'],
+                    'lvalue': [2, 3, 5, 7, 0, 99]})
+df2 = pd.DataFrame({'rkey': ['x', 'x', 'z', 'z'],
+                    'rvalue': [7, 8, 9, 10]})
+
+
+# In[3]:
+
+
+df1
+
+
+# In[4]:
+
+
+df2
+
+
+# In[5]:
+
+
+pd.merge(df1, df2, left_on = 'lkey', right_on = 'rkey', how = 'left')
+
