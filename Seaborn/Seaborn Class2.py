@@ -87,3 +87,37 @@ ax.set_xticklabels(df['vehicleType'].unique(), rotation = 90);
 plt.subplots(figsize = (12, 6))
 sns.countplot('vehicleType', data = df)
 
+
+# In[6]:
+
+
+df.head()
+
+
+# In[8]:
+
+
+# average price for vehicles based on the type of vehicle as well as on the type of gearbox
+
+
+# In[12]:
+
+
+plt.figure(figsize = (12, 6))
+sns.barplot('vehicleType', 'price', 'gearbox', data = df)
+plt.show()
+
+
+# In[13]:
+
+
+# average price for vehicles by fuel type as well as on the type of gearbox
+
+
+# In[14]:
+
+
+plt.figure(figsize = (12, 6))
+sns.barplot('fuelType', 'price', 'gearbox', data = df)
+plt.tight_layout()
+
